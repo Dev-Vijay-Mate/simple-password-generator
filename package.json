@@ -1,0 +1,21 @@
+{
+  "name": "simple-password-generator",
+  "version": "1.0.0",
+  "description": "Generate secure random passwords with zero dependencies.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "npm",
+    "javascript",
+    "password-generator",
+    "random-password",
+    "utility"
+  ],
+  "license": "MIT"
+}
