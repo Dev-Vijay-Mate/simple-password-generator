@@ -3,9 +3,22 @@
   "version": "1.0.0",
   "description": "Generate secure random passwords with zero dependencies.",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "main": "./src/index.js",
   "exports": {
     ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dev-Vijay-Mate/simple-password-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dev-Vijay-Mate/simple-password-generator/issues"
   },
   "scripts": {
     "test": "node --test"
