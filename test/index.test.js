@@ -35,6 +35,15 @@ test("can exclude ambiguous characters", () => {
   assert.doesNotMatch(password, /[0Oo1lI]/);
 });
 
+test("can exclude custom characters", () => {
+  const password = generatePassword({
+    length: 30,
+    excludeCharacters: "abcXYZ012!"
+  });
+
+  assert.doesNotMatch(password, /[abcXYZ012!]/);
+});
+
 test("rejects invalid options", () => {
   assert.throws(() => generatePassword({ length: 0 }), /positive integer/);
   assert.throws(
@@ -44,5 +53,9 @@ test("rejects invalid options", () => {
   assert.throws(
     () => generatePassword({ length: 1, lowercase: true, uppercase: true }),
     /at least the number of enabled/
+  );
+  assert.throws(
+    () => generatePassword({ lowercase: true, uppercase: false, numbers: false, symbols: false, excludeCharacters: "abcdefghijklmnopqrstuvwxyz" }),
+    /removes all characters/
   );
 });

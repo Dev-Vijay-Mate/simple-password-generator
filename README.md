@@ -41,6 +41,7 @@ generatePassword({
 | `numbers` | `true` | Include numbers |
 | `symbols` | `true` | Include symbols |
 | `excludeAmbiguous` | `false` | Exclude characters that can look similar, such as `0`, `O`, `1`, and `l` |
+| `excludeCharacters` | `""` | Exclude specific characters |
 
 The generator uses Node.js's built-in cryptographic random number generator and has no runtime dependencies.
 

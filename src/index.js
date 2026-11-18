@@ -17,6 +17,9 @@ function validateOptions(options) {
   if (!Number.isInteger(options.length) || options.length < 1) {
     throw new TypeError("length must be a positive integer");
   }
+  if (typeof options.excludeCharacters !== "string") {
+    throw new TypeError("excludeCharacters must be a string");
+  }
 
   const enabledTypes = ["lowercase", "uppercase", "numbers", "symbols"]
     .filter((type) => options[type]);
@@ -51,17 +54,23 @@ export function generatePassword(options = {}) {
     numbers: true,
     symbols: true,
     excludeAmbiguous: false,
+    excludeCharacters: "",
     ...options
   };
   const enabledTypes = validateOptions(settings);
   const getCharacters = (type) => {
     const characters = CHARACTERS[type];
-    return settings.excludeAmbiguous
-      ? [...characters].filter((character) => !AMBIGUOUS_CHARACTERS.includes(character)).join("")
-      : characters;
+    return [...characters]
+      .filter((character) => !settings.excludeAmbiguous || !AMBIGUOUS_CHARACTERS.includes(character))
+      .filter((character) => !settings.excludeCharacters.includes(character))
+      .join("");
   };
-  const passwordCharacters = enabledTypes.map((type) => pick(getCharacters(type)));
-  const allCharacters = enabledTypes.map(getCharacters).join("");
+  const characterSets = enabledTypes.map(getCharacters);
+  if (characterSets.some((characters) => characters.length === 0)) {
+    throw new RangeError("excludeCharacters removes all characters from an enabled character type");
+  }
+  const passwordCharacters = characterSets.map(pick);
+  const allCharacters = characterSets.join("");
 
   while (passwordCharacters.length < settings.length) {
     passwordCharacters.push(pick(allCharacters));
