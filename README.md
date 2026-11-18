@@ -1,17 +1,17 @@
-# simple-password-generator
+# dev-vijay-simple-password-generator
 
 Generate secure random passwords with zero dependencies.
 
 ## Install
 
 ```bash
-npm install simple-password-generator
+npm install dev-vijay-simple-password-generator
 ```
 
 ## Usage
 
 ```js
-import { generatePassword } from "simple-password-generator";
+import { generatePassword } from "dev-vijay-simple-password-generator";
 
 generatePassword();
 // Example: rP7!kQ2@vL9#sX4m

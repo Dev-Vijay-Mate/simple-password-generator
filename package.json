@@ -1,5 +1,5 @@
 {
-  "name": "simple-password-generator",
+  "name": "dev-vijay-simple-password-generator",
   "version": "1.0.0",
   "description": "Generate secure random passwords with zero dependencies.",
   "type": "module",
