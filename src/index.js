@@ -7,6 +7,8 @@ const CHARACTERS = {
   symbols: "!@#$%^&*()-_=+[]{};:,.?/"
 };
 
+const AMBIGUOUS_CHARACTERS = "0Oo1lI";
+
 function pick(characters) {
   return characters[randomInt(characters.length)];
 }
@@ -48,11 +50,18 @@ export function generatePassword(options = {}) {
     uppercase: true,
     numbers: true,
     symbols: true,
+    excludeAmbiguous: false,
     ...options
   };
   const enabledTypes = validateOptions(settings);
-  const passwordCharacters = enabledTypes.map((type) => pick(CHARACTERS[type]));
-  const allCharacters = enabledTypes.map((type) => CHARACTERS[type]).join("");
+  const getCharacters = (type) => {
+    const characters = CHARACTERS[type];
+    return settings.excludeAmbiguous
+      ? [...characters].filter((character) => !AMBIGUOUS_CHARACTERS.includes(character)).join("")
+      : characters;
+  };
+  const passwordCharacters = enabledTypes.map((type) => pick(getCharacters(type)));
+  const allCharacters = enabledTypes.map(getCharacters).join("");
 
   while (passwordCharacters.length < settings.length) {
     passwordCharacters.push(pick(allCharacters));
@@ -67,4 +76,4 @@ export function generatePassword(options = {}) {
   return passwordCharacters.join("");
 }
 
-export { CHARACTERS };
+export { AMBIGUOUS_CHARACTERS, CHARACTERS };

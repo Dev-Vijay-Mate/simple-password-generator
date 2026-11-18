@@ -29,6 +29,12 @@ test("supports selecting specific character types", () => {
   assert.match(password, /^[A-Z0-9]+$/);
 });
 
+test("can exclude ambiguous characters", () => {
+  const password = generatePassword({ length: 40, excludeAmbiguous: true });
+
+  assert.doesNotMatch(password, /[0Oo1lI]/);
+});
+
 test("rejects invalid options", () => {
   assert.throws(() => generatePassword({ length: 0 }), /positive integer/);
   assert.throws(
