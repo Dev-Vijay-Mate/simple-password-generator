@@ -1,5 +1,3 @@
-import { randomInt } from "node:crypto";
-
 const CHARACTERS = {
   lowercase: "abcdefghijklmnopqrstuvwxyz",
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -8,6 +6,18 @@ const CHARACTERS = {
 };
 
 const AMBIGUOUS_CHARACTERS = "0Oo1lI";
+
+function randomInt(maxExclusive) {
+  const maximum = 2 ** 32;
+  const limit = maximum - (maximum % maxExclusive);
+  const values = new Uint32Array(1);
+
+  do {
+    globalThis.crypto.getRandomValues(values);
+  } while (values[0] >= limit);
+
+  return values[0] % maxExclusive;
+}
 
 function pick(characters) {
   return characters[randomInt(characters.length)];

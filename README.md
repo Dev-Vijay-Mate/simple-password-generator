@@ -1,6 +1,6 @@
 # dev-vijay-simple-password-generator
 
-Generate secure random passwords with zero dependencies.
+Generate secure random passwords in Node.js and modern browsers with zero dependencies.
 
 ## Install
 
@@ -43,7 +43,7 @@ generatePassword({
 | `excludeAmbiguous` | `false` | Exclude characters that can look similar, such as `0`, `O`, `1`, and `l` |
 | `excludeCharacters` | `""` | Exclude specific characters |
 
-The generator uses Node.js's built-in cryptographic random number generator and has no runtime dependencies.
+The generator uses the Web Crypto API and has no runtime dependencies.
 
 Run the tests with:
 
